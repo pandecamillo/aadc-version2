@@ -22,7 +22,9 @@
 
       /* En-tête */
       header {
-    
+        position: sticky;
+        top:0;
+        z-index: 400;
         background-color: #fff;
         padding: 1rem;
         box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.05);
@@ -42,6 +44,8 @@ img{
       /* Navigation Mobile (Hamburger) */
       .nav-toggle {
         display: block;
+        position: relative;
+        z-index: 555555;
         cursor: pointer;
         border: none;
         background: none;
@@ -58,7 +62,7 @@ img{
       }
 
       .nav-toggle.open span {
-        background-color: #fff; /* Icône de fermeture en blanc */
+        background-color: none; /* Icône de fermeture en blanc */
       }
 
       .nav-toggle.open span:nth-child(1) {
@@ -91,6 +95,7 @@ img{
 
       nav.open {
         transform: translateX(0);
+      
       }
 
       nav ul {
@@ -107,7 +112,7 @@ img{
       nav a {
         color: #343a40;
         text-decoration: none;
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         padding: 0.75rem 1.5rem;
         border-radius: 0.25rem;
         transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
@@ -173,6 +178,7 @@ img{
         opacity: 0;
         transform: translateY(30px);
         transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        scroll-margin-top: 30px;
       }
 
       .section.show {
@@ -314,6 +320,10 @@ img{
         .section-content {
           flex-direction: row;
           align-items: center;
+          justify-content: space-evenly;
+          align-items: flex-start;
+          width: 80%;
+          margin:auto;
         }
 
         .section-content > div {
@@ -363,6 +373,8 @@ img{
 
         .contact-info {
           padding: 3rem;
+          margin: auto;
+          width: fit-content;
         }
       }
 
@@ -566,12 +578,6 @@ img{
         <div>
             <p><strong>Secrétaire Générale:</strong> Isabelle TSHIBUABUA</p>
             <p>
-              Le Secrétariat Général est l'organe d'exécution et de coordination
-              des activités et des programmes du parti. Il assure la gestion
-              quotidienne du parti et Prépare les dossiers destinés au Conseil
-              National, au Bureau Politique et au Congrès.
-            </p>
-            <p>
               Il est dirigé par un Secrétaire Général assisté de deux adjoints.
             </p>
           <h3>Au niveau national</h3>
@@ -602,7 +608,7 @@ img{
         />
         <h2>Rejoignez l'AADC</h2>
         <a
-          href="https://wa.me/243898652101"
+          href="https://wa.me/243898652101?text=Bonjour%20!%20Je%20souhaite%20adh%C3%A9rer%20%C3%A0%20l'AADC."
           class="adhesion-button"
           target="_blank"
           >Cliquez pour s'adhérer</a
@@ -619,7 +625,7 @@ img{
     </section>
     <footer>
       <p>
-        &copy; 2025 AADC - Alliance pour les Actions de Développement du Congo
+        &copy; 2025 AADC <br><small>Powered by Congosoft</small>
       </p>
     </footer>
 
