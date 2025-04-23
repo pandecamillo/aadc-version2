@@ -1,4 +1,4 @@
-export default "http://localhost:8800";
+export default "https://api-aadc.onrender.com";
 
 /*
 https://api-aadc.onrender.com
