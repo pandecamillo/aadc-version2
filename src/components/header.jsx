@@ -143,7 +143,7 @@ function Header() {
             <div className="nav-link">
               <img src="../icon/event.png" alt="" />
               <Link onClick={(event)=>{event.preventDefault();toggleMenu(); navigate("/activites")}}  className="link">
-                Evénements
+                Communiqués
               </Link>
             </div>
           )}

@@ -1,4 +1,4 @@
-export default "https://aadc.onrender.com";
+export default "http://localhost:3000";
 
 /**
  * http://localhost:3000

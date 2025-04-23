@@ -192,11 +192,11 @@ function PageInterfederation() {
           nombre = "Aucune federation";
         }
         listNiveaux.push(
-          <div className="niveau" key={niveau.idNiveau}>
+          <div   className="niveau" key={niveau.idNiveau}    >
             <div
-              onClick={() => {
-                navigate("/federation/" + niveau.idNiveau);
-              }}
+          onClick={() => {
+            navigate("/federation/" + niveau.idNiveau);
+          }}
               className="content"
             >
               <h3>{niveau.libelle}</h3>
@@ -314,13 +314,14 @@ function PageInterfederation() {
             ) : (
               <>
                 <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "50vh",
-                  }}
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            width:"100%",
+                            height: "50vh",
+                          }}
                 >
                   Aucune interfederation
                 </div>

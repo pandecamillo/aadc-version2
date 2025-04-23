@@ -43,6 +43,7 @@ import PageCotisation from "./pages/pageCotisation";
 import PageInterfederation from "./pages/pageInterFederation";
 import PageSousSection from "./pages/pageSousSection";
 import PageMaCarte from "./pages/pageMaCarte";
+import PageErreurPrivilege from "./pages/pageErreurPrivilege";
 
 function PageRouter() {
   return (
@@ -55,7 +56,7 @@ function PageRouter() {
             <Route path="adhesion" element={<PageAdhesion />} />
             <Route path="login" element={<PageLogin />}></Route>
             <Route path="membres" element={<PageMembres />} />
-
+            <Route path="erreur-privilege" element={<PageErreurPrivilege />} />
             <Route path="membre-ajout/:id" element={<PageMembreAjout />} />
             <Route path="interfederation" element={<PageInterfederation />} />
             <Route path="federation/:id" element={<PageFederation />} />

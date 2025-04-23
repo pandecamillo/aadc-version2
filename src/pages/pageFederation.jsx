@@ -193,11 +193,11 @@ function PageFederation() {
           nombre = "Aucune section";
         }
         listNiveaux.push(
-          <div className="niveau" key={niveau.idNiveau}>
+          <div className="niveau" key={niveau.idNiveau}  >
             <div
-              onClick={() => {
-                navigate(`/section/${locationInterFederation}-${niveau.idNiveau}`);
-              }}
+             onClick={() => {
+              navigate(`/section/${locationInterFederation}-${niveau.idNiveau}`);
+            }}
               className="content"
             >
               <h3>{niveau.libelle}</h3>
@@ -320,6 +320,7 @@ function PageFederation() {
                     flexDirection: "column",
                     justifyContent: "center",
                     alignItems: "center",
+                    width:"100%",
                     height: "50vh",
                   }}
                 >

@@ -29,8 +29,7 @@ function PageMembreInfo(props) {
 
   useEffect(() => {
     if(!user || user && user.idFonction == null){
-      alert("AADC : vous n'êtes pas autorisé à accèder à cette information")
-      navigate("/home");
+      navigate("/erreur-privilege");
       return
     }
     const fetchData = async () => {

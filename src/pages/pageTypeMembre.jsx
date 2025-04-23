@@ -264,7 +264,7 @@ function PageTypeMembre() {
             <h3>TYPE MEMBRE</h3>
             <img src="../icon/ajouter.png" width="40px" />
           </div>
-          <section className="actualite">
+          <section className="liste-niveaux">
             {loading ? (
               <div
                 style={{
@@ -287,13 +287,14 @@ function PageTypeMembre() {
               listeSymboles
             ) : (
               <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "50vh",
-                }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                width:"100%",
+                height: "50vh",
+              }}
               >
                 Aucun type de membre
               </div>

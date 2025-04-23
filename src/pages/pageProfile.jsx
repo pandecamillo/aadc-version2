@@ -61,6 +61,8 @@ function PageProfile() {
               <button style={{marginTop:"0.2em"}} onClick={goToEdit}>Modifier</button>
             )}
             <br />
+            <br />
+            <br />
             <button style={{marginTop:"0.2em"}} className="disconnect" onClick={openDialog}>
               Deconnecter
             </button>

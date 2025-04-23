@@ -203,6 +203,8 @@ function PageAdhesion(props) {
   return (
     <MainLayout>
       <div style={{ display: "flex", flexDirection: "column"}}>
+        <br />
+       <center> <h2>Formulaire d'adhésion</h2></center>    
         <section
           className="form-adhesion pc"
           style={{

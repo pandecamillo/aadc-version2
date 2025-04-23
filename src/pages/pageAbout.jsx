@@ -76,7 +76,7 @@ function PageAbout() {
               </p>
             </div>
             <center>
-             <a href="#" download >
+             <a href="#" download onClick={(event)=>{event.preventDefault();openDialog()}}>
              <button className="voir-plus" style={{ padding: "0.5em 1em", fontSize: "1.2rem", fontWeight: "bolder"}}>Télécharger le manuel</button>
              </a>
             </center>

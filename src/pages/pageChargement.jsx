@@ -21,13 +21,58 @@ function PageChargement() {
     }
   };
 
+  const [information, setInformation] = useState("");
+
   const wakeFreeServer = async () => {
     try {
-      // fausse requete pour reveiller le serveur gratuit     
+      // fausse requete pour reveiller le serveur gratuit
+      const date = new Date();
+      const heure = date.getHours();
+      let salutation = "";
+      let appelation = "";
+      if (heure >= 5 && heure < 12) {
+        salutation = "Bonjour";
+      } else if (heure >= 14 && heure < 18) {
+        salutation = "Bon après-midi";
+      } else if (heure >= 18 && heure < 22) {
+        salutation = "Bonsoir";
+      } else {
+        salutation = "Bonne nuit";
+      }
+      if(user){
+        if(user.sexe == "M"){
+            appelation = "monsieur"
+        }else{
+          appelation = "madame"
+        }
+      }
+      setTimeout(() => {
+        user ? setInformation(`${salutation}, ${user.prenom}`) : setInformation("Bienvenue à AADC");
+      }, 5000);
+      setTimeout(() => {
+        user ? setInformation(`Desolé, ${user.prenom}. C'est très lent`) : setInformation("Desolé pour la lenteur");
+      }, 15000);
+      setTimeout(() => {
+        setInformation("La version gratuite est lente");
+      }, 20000);
+      setTimeout(() => {
+        user ? setInformation(user.prenom + ", attends ...") : setInformation("Veuillez patienter ...");
+      }, 25000);
+      setTimeout(() => {
+        if (heure >= 5 && heure < 12) {
+           setInformation("Je vous souhaite bonne journée")
+        } else if (heure >= 14 && heure < 18) {
+          salutation = "Je vous souhaite bonne après-midi";
+        } else if (heure >= 18 && heure < 22) {
+          salutation = "Je vous souhaite bonne soirée";
+        } else {
+          salutation = "Je vous souhaite bonne nuit";
+        }
+      }, 32000);
       await axios.get(connection);
       verifyUser();
-      setLoading(false)
-      navigate("/home")
+      setLoading(false);
+      navigate("/home");
     } catch (error) {
       setServerError(true);
     }
@@ -91,9 +136,9 @@ function PageChargement() {
     "../icon/whatsapp.png",
     "../icon/windows.png",
     "../icon/youtube.png",
-];
+  ];
 
-// ajouter nouveaux images
+  // ajouter nouveaux images
 
   const preloadImages = (imageUrls) => {
     return new Promise((resolve, reject) => {
@@ -116,13 +161,12 @@ function PageChargement() {
 
   useEffect(() => {
     preloadImages(images)
-    .then(() => wakeFreeServer())
-    .catch((error) => {
-      console.error('Error preloading images', error);
-      setImagesLoaded(false);
-    });
+      .then(() => wakeFreeServer())
+      .catch((error) => {
+        console.error("Error preloading images", error);
+        setImagesLoaded(false);
+      });
   }, []);
-
 
   const [serverError, setServerError] = useState(false);
   if (serverError) {
@@ -140,7 +184,7 @@ function PageChargement() {
           <br />
           <div>
             <button
-            style={{fontWeight:"bold", fontSize:"1.2rem"}}
+              style={{ fontWeight: "bold", fontSize: "1.2rem" }}
               onClick={() => {
                 window.location.reload();
               }}
@@ -153,28 +197,31 @@ function PageChargement() {
     );
   }
 
-  return(
-    <div style={{
-      height: "100vh",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      padding: "2em",
-      margin:"auto",
-      background: "linear-gradient(120deg,  rgba(13, 201, 0, 0.7), rgba(138, 210, 209, 0.452),rgba(13, 201, 0, 0.7))",
-}}>
+  return (
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        padding: "2em",
+        margin: "auto",
+        background:
+          "linear-gradient(120deg,  rgba(13, 201, 0, 0.7), rgba(138, 210, 209, 0.452),rgba(13, 201, 0, 0.7))",
+      }}
+    >
       <center>
-      <img
-        style={{ width: "100%", maxWidth: "300px" }}
-      
-        src="../img/logo.png"
-      />
-      <br />
-      <img
-        style={{ width: "100%", maxWidth: "200px" }}
-        src="../img/loader.gif"
-        alt=""
-      />
+        <img
+          style={{ width: "100%", maxWidth: "300px" }}
+          src="../img/logo.png"
+        />
+        <br />
+        <img
+          style={{ width: "100%", maxWidth: "200px" }}
+          src="../img/loader.gif"
+          alt=""
+        />
+        <p>{information}</p>
       </center>
     </div>
   );

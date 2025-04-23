@@ -189,7 +189,7 @@ function PageSousSection() {
           nombre = "Aucune cellule";
         }
         listNiveaux.push(
-          <div className="niveau" key={niveau.idNiveau}>
+          <div className="niveau" key={niveau.idNiveau} >
             <div
               onClick={() => {
                 navigate(`/cellule/${locationInterFederation}-${locationFederation}-${locationSection}-${niveau.idNiveau}`);
@@ -322,13 +322,14 @@ function PageSousSection() {
             ) : (
               <>
                 <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "50vh",
-                  }}
+                 style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width:"100%",
+                  height: "50vh",
+                }}
                 >
                   Aucune sous section
                 </div>
