@@ -155,6 +155,14 @@ function Header() {
               </Link>
             </div>
           )}
+                  {user && user.idFonction != null && (
+            <div className="nav-link">
+              <img src="../icon/adhesion.png" alt="" />
+              <Link onClick={(event)=>{event.preventDefault();toggleMenu(); navigate("/adhesion-en-ligne")}}  className="link">
+                Adhesions
+              </Link>
+            </div>
+          )}
           {user && (
             <div className="nav-link">
               <img src="../icon/settings.png" alt="" />

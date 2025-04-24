@@ -50,7 +50,7 @@ const goToHome = ()=>{
               padding:"0.5em 1em"
             }}>Accès refusé</h3> <br />{" "}
             <p style={{ textAlign: "left", paddingLeft:"0.5em", fontSize:"1rem"}}>
-              Uniquement les responsables du parti ont accès à ces types d'informations. <br /> <br /><center><strong>Authentifiez vous</strong></center>. 
+              Uniquement les responsables du parti ont accès à ces types d'informations. <br /> <br /><center><strong>Authentifiez vous, puis réessayer</strong></center>. 
               <br />
             </p>
             <button

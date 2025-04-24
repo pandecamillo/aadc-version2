@@ -8,7 +8,7 @@ function PageInformation(props) {
   const location = useLocation();
   const {idMembre, nomMembre, prenomMembre } = location.state || {};
   const goToHome = () => {
-    let message = `Salut, président interfederal Adida Masiki, je m'appelle ${nomMembre} ${prenomMembre}, j'ai fait l'adhésion en ligne. Je souhaite obtenir la carte et finaliser mon adhésion.\n\n${url_du_site}/#/membre-info/${idMembre}`;
+    let message = `Salut, président interfederal Adida Masiki, je m'appelle ${nomMembre} ${prenomMembre}, j'ai fait l'adhésion en ligne. Je souhaite obtenir la carte et finaliser mon adhésion.\n\n${url_du_site}/#/info-adhesion/${idMembre}`;
     if(!nomMembre || !prenomMembre){
       message = `Salut, président interfederal Adida Masiki, j'ai fait l'adhésion en ligne. Je souhaite obtenir la carte et finaliser mon adhésion`;
     }
