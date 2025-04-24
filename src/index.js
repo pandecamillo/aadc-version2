@@ -44,6 +44,7 @@ import PageInterfederation from "./pages/pageInterFederation";
 import PageSousSection from "./pages/pageSousSection";
 import PageMaCarte from "./pages/pageMaCarte";
 import PageErreurPrivilege from "./pages/pageErreurPrivilege";
+import AdhesionMultiStep from "./pages/pageAdhesionMultiStep";
 
 function PageRouter() {
   return (
@@ -57,19 +58,20 @@ function PageRouter() {
             <Route path="login" element={<PageLogin />}></Route>
             <Route path="membres" element={<PageMembres />} />
             <Route path="erreur-privilege" element={<PageErreurPrivilege />} />
-            <Route path="membre-ajout/:id" element={<PageMembreAjout />} />
+            <Route path="membre-ajout/:id" element={<Page404 />} />
             <Route path="interfederation" element={<PageInterfederation />} />
             <Route path="federation/:id" element={<PageFederation />} />
             <Route path="sous-section/:id" element={<PageSousSection />} />
             <Route path="section/:id" element={<PageSection />} />
             <Route path="cellule/:id" element={<PageCellule />} />
+            <Route path="formulaire" element={<AdhesionMultiStep/>}/>
             <Route
               path="membre-modifier/:id"
               element={<PageMembreModifier />}
             />
             <Route
               path="compte-modifier/:id"
-              element={<PageModifierCompte />}
+              element={<Page404 />}
             />
             <Route path="membre-info/:id" element={<PageMembreInfo />} />
             <Route path="membres-niveau/:id" element={<PageMembresNiveau />} />
