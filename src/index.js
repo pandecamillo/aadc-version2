@@ -58,7 +58,7 @@ function PageRouter() {
             <Route path="login" element={<PageLogin />}></Route>
             <Route path="membres" element={<PageMembres />} />
             <Route path="erreur-privilege" element={<PageErreurPrivilege />} />
-            <Route path="membre-ajout/:id" element={<Page404 />} />
+            <Route path="membre-ajout/:id" element={<PageMembreAjout />} />
             <Route path="interfederation" element={<PageInterfederation />} />
             <Route path="federation/:id" element={<PageFederation />} />
             <Route path="sous-section/:id" element={<PageSousSection />} />
@@ -71,7 +71,7 @@ function PageRouter() {
             />
             <Route
               path="compte-modifier/:id"
-              element={<Page404 />}
+              element={<PageModifierCompte />}
             />
             <Route path="membre-info/:id" element={<PageMembreInfo />} />
             <Route path="membres-niveau/:id" element={<PageMembresNiveau />} />

@@ -299,6 +299,7 @@ function PageFederation() {
                 justifyContent: "center",
                 alignItems: "center",
                 height: "40vh",
+                width:"100%"
               }}
               >
                 <center>

@@ -81,7 +81,7 @@ function PageHome() {
   };
 
   const goToAdhesion = () => {
-    navigate("/adhesion");
+    navigate("/formulaire");
   };
   const goToForum = () => {
     navigate("/forum");

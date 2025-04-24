@@ -1,7 +1,7 @@
-export default "https://aadc.onrender.com";
+export default "http://localhost:3000";
 
 /**
  * http://localhost:3000
- * https://aadc.onrender.com
+ * aadc.onrender.com
  * 
  * * */

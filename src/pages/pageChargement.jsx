@@ -79,8 +79,10 @@ function PageChargement() {
   };
 
   const images = [
+    "../img/male.png",
+    "../img/female.png",
     "../img/maman.jpg",
-    "../img/mamama.jpg",
+    "../img/mamama.png",
     "../img/maman2.jpg",
     "../img/photo-en-groupe.jpg",
     "../img/kinshasa.png",

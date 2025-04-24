@@ -118,7 +118,7 @@ function Header() {
           {!user && (
             <div className="nav-link">
               <img src="../icon/user.png" alt="" />
-              <Link onClick={(event)=>{event.preventDefault();toggleMenu(); navigate("/adhesion")}}  className="link">
+              <Link onClick={(event)=>{event.preventDefault();toggleMenu(); navigate("/formulaire")}}  className="link">
                 S'adhérer
               </Link>
             </div>

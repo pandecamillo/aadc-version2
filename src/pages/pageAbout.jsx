@@ -41,7 +41,7 @@ function PageAbout() {
             <div className="autorite-morale">
               <h2>Autorité morale :</h2>
               <div className="autorite">
-                <img src="../img/mamama.jpg" alt="" />
+                <img src="../img/mamama.PNG" alt="" />
                 <p>Honorable Adèle KABENA MUAUKA</p>
               </div>
               <small>{"<< AADC >> "}</small>
