@@ -135,7 +135,7 @@ function PageAbout() {
             <br />
 <center style={{marginBottom:"1em"}}>            <strong > Télécharger : </strong></center>
           <div style={{textAlign:"right", width:"90%", margin:"auto", }}> 
-           <a href="../data/AADC.apk" download style={{border:"none"}}> <img src="../icon/android.png" width="80px" /></a>
+           <a href="../img/AADC.apk" download style={{border:"none"}}> <img src="../icon/android.png" width="80px" /></a>
             <a href="#" style={{border:"none"}}><img onClick={(event)=>{event.preventDefault();openDialog2()}} src="../icon/ios.png" width="80px" style={{marginLeft:"1em"}}/> </a>
            <a href="#" download style={{border:"none"}}> <img onClick={(event)=>{event.preventDefault();openDialog2()}} src="../icon/windows.png" width="80px" style={{marginLeft:"1em"}}/></a>
             </div>
