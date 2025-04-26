@@ -238,10 +238,9 @@ function PageMembres() {
   }, [currentTab, currentInterfederation]);
 
   useEffect(() => {
-    if (!user || (user && user.idFonction == null)) {
-      alert("AADC : vous n'êtes pas autorisé à accèder à cette information");
-      navigate("/home");
-      return;
+    if(!user || user && user.idFonction == null){
+      navigate("/erreur-privilege");
+      return
     }
 
   }, []);
