@@ -22,21 +22,21 @@ function PageMembres() {
   const [dialogChoix, setDialogChoix] = useState(false);
   const [selectValues, setSelectValues] = useState([]);
   const [firstLoad, setFirsLoad] = useState(true);
-  const [changement, setChangement] = useState(false)
- 
+  const [changement, setChangement] = useState(false);
+
   const removeAccents = (str) =>
     str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
   const openDialog = () => {
     document.getElementById("modal").showModal();
-    document.getElementById("modal").style.opacity = '1'; 
-    document.getElementById("modal").style.transform = 'scale(1)';
+    document.getElementById("modal").style.opacity = "1";
+    document.getElementById("modal").style.transform = "scale(1)";
   };
 
   const closeDialog = () => {
     document.getElementById("modal").close();
-    document.getElementById("modal").style.opacity = '0'; 
-    document.getElementById("modal").style.transform = 'scale(0.7)';
+    document.getElementById("modal").style.opacity = "0";
+    document.getElementById("modal").style.transform = "scale(0.7)";
   };
 
   const handleClear = () => {
@@ -46,13 +46,12 @@ function PageMembres() {
 
   const handleNiveauType = (event) => {
     let clickedButton = event.target.name;
-    setNiveauId("");
-    setNiveauType(clickedButton);
+    setCurrentTab(clickedButton);
     closeDialog();
   };
 
   const handleSelectNiveau = () => {
-    setNiveauId(document.getElementById("selectNiveau").value);
+    setCurrentInterfederation(document.getElementById("selectNiveau").value);
   };
 
   const handleSearchChange = (e) => {
@@ -82,120 +81,170 @@ function PageMembres() {
         ) {
           listeSearch.push(
             <div
-            className="membre"
-            key={membre.id}
-            onClick={() => {
-              navigate("/membre-info/" + membre.id);
-            }}
-          >
-            <img src={membre.photo || "../img/profile.png"} alt="" />
-            <div className="membre-informations">
-              <h4 className="nom">
-                {membre.id == user.id
-                  ? "Vous"
-                  : membre.nom + " " + membre.prenom}
-              </h4>
-              {membre.id_du_niveau ? (
-                <small>
-                  {membre.libelle}
-                </small>
-              ) : membre.enLigne == "oui" ? (<small style={{color:"rgb(28, 175, 28)"}}>Adhéré{membre.sexe == "F" ? "e":""} en ligne</small>) :(
-                <small>Aucun niveau</small>
-              )}
-              {membre.fonction ? (
-                <h5 className="auth">{membre.fonction}</h5>
-              ) : (
-                <h5 className="invisible-man">membre</h5>
-              )}
+              className="membre"
+              key={membre.id}
+              onClick={() => {
+                navigate("/membre-info/" + membre.id);
+              }}
+            >
+              <img src={membre.photo || "../img/profile.png"} alt="" />
+              <div className="membre-informations">
+                <h4 className="nom">
+                  {membre.id == user.id
+                    ? "Vous"
+                    : membre.nom + " " + membre.prenom}
+                </h4>
+                {membre.id_du_niveau ? (
+                  <small>{membre.libelle}</small>
+                ) : membre.enLigne == "oui" && niveauType == "" ? (
+                  <small style={{ color: "rgb(28, 175, 28)" }}>
+                    Adhésion en cours
+                  </small>
+                ) : (
+                  <small>Aucun niveau</small>
+                )}
+                {membre.fonction ? (
+                  <h5 className="auth">{membre.fonction}</h5>
+                ) : (
+                  <h5 className="invisible-man">membre</h5>
+                )}
+              </div>
             </div>
-          </div>
           );
         }
       });
     setSearchResult(listeSearch);
   };
 
+  const fetchAllMembre = async () => {
+    setLoading(true);
+    document.getElementById("txtSearch").value = "";
+    setSearch("");
+    let res = await axios.get(connection + "/lire-membres/");
+    setData(res.data);
+    setLoading(false);
+  };
+
+  const fetchAdhesions = async () => {
+    setLoading(true);
+    document.getElementById("txtSearch").value = "";
+    setSearch("");
+    let res = await axios.get(connection + "/lire-membres-en-ligne");
+    setData(res.data);
+    setLoading(false);
+  };
+
+  
   const fetchNiveauType = async () => {
     setLoading(true);
-    setFirsLoad(true)
+    setFirsLoad(true);
+    document.getElementById("txtSearch").value = "";
     setSearch("");
+    niveauType && console.log("niveau : " + niveauType);
     try {
       let res;
-      if(niveauType == "enligne"){
-        res = await axios.get(
-          connection + "/lire-membres-en-ligne");
-          setData(res.data);
-          setLoading(false)
-          setFirsLoad(false)
-          return;
-      }
-      if (niveauType != "" && niveauId == "") {
-        res = await axios.get(
-          connection + "/lire-membres-niveauType/" + niveauType
-        );
+      if (niveauType == "") {
+        setNiveauId(firstInterfederation);
+        res = await axios.get(connection + "/lire-membres/");
+        setFirsLoad(false);
         setData(res.data);
         setLoading(false);
-        setFirsLoad(false)
-      } else if (niveauId != "") {
+        setFirsLoad(false);
+        console.log("tout");
+        return;
+      }
+
+      if (niveauType == "interfederation" && niveauId) {
+        setSearch("");
         res = await axios.get(
           connection + "/lire-membres-niveauId/" + niveauId
         );
         setData(res.data);
         setLoading(false);
-      } else {
-        res = await axios.get(connection + "/lire-membres/");
         setFirsLoad(false);
+        console.log("inter");
+        return;
+      }
+      if (niveauType == "enligne") {
+        setNiveauId(firstInterfederation);
+        res = await axios.get(connection);
         setData(res.data);
         setLoading(false);
-        setFirsLoad(false)
-      }
-      setFirsLoad(false)
-    } catch (error) {
-      setServerError(true);
-    }
-  };
-
-
-  const fetchSelect = async () => {
-    setNiveauId("");
-    setSearch("");
-    if (!loading) document.getElementById("txtSearch").value = "";
-    try {
-      let values;
-      setLoading(true);
-      if (niveauType != "") {
-        values = await axios.get(
-          connection + "/lire-tous-niveauType/" + niveauType
-        );
-        setSelectValues(values.data);
+        setFirsLoad(false);
+        console.log("en ligne");
+        return;
       }
       setLoading(false);
+      setFirsLoad(false);
     } catch (error) {
       setServerError(true);
     }
   };
+  const [interfederations, setInterfederations] = useState([]);
+  const [firstInterfederation, setFirstInterfederation] = useState(0);
 
-  
+  const [currentInterfederation, setCurrentInterfederation] = useState();
+  const fetchSelect = async () => {
+    let values = await axios.get(connection + "/lire-tous-interfederation/");
+    setInterfederations(values.data);
+    setCurrentInterfederation(values.data[0].id);
+  };
+
   useEffect(() => {
     fetchNiveauType();
-    setChangement(false)
-  }, [niveauType, niveauId, changement]);
+    setChangement(false);
+  }, [niveauType, changement, niveauId]);
+
+  const [currentTab, setCurrentTab] = useState("tous")
 
   useEffect(() => {
-    if(!user || user && user.idFonction == null){
-      alert("AADC : vous n'êtes pas autorisé à accèder à cette information")
-      navigate("/home");
-      return
-    }
+    fetchAllMembre();
     fetchSelect();
-    socket.on('membre', () => {
-      setChangement(true)
-  })
- 
-  }, [niveauType]);
+  }, []);
 
+  const renderTab = ()=>{
+    if(currentTab == 'tous'){
+         fetchAllMembre();
+    }else if(currentTab == 'interfederation'){
+         document.getElementById("selectNiveau").value = currentInterfederation;
+         fetchInterfederation(currentInterfederation);
+    }else{
+        fetchAdhesions();
+    }
+  }
 
- 
+  const fetchInterfederation = async(interfederation)=>{
+    setSearch("");
+    let res = await axios.get(
+          connection + "/lire-membres-niveauId/" + interfederation
+        );
+        setData(res.data);
+        setLoading(false);
+        setFirsLoad(false);
+  }
+
+  const makeChangementOnAdhesion = async()=>{
+       console.log(currentTab)
+       if(currentTab == 'adhesion'){
+          fetchAdhesions();
+       }
+  }
+
+  
+  socket.on("membre", makeChangementOnAdhesion);
+
+  useEffect(() => {
+    renderTab();
+  }, [currentTab, currentInterfederation]);
+
+  useEffect(() => {
+    if (!user || (user && user.idFonction == null)) {
+      alert("AADC : vous n'êtes pas autorisé à accèder à cette information");
+      navigate("/home");
+      return;
+    }
+
+  }, []);
 
   let listeMembres = [];
   listeMembres = [];
@@ -218,10 +267,12 @@ function PageMembres() {
                   : membre.nom + " " + membre.prenom}
               </h4>
               {membre.id_du_niveau ? (
-                <small>
-                  {membre.libelle}
+                <small>{membre.libelle}</small>
+              ) : membre.enLigne == "oui" && niveauType == "" ? (
+                <small style={{ color: "rgb(28, 175, 28)" }}>
+                  Adhésion en cours
                 </small>
-              ) : membre.enLigne == "oui" ? (<small style={{color:"rgb(28, 175, 28)"}}>Adhéré{membre.sexe == "F" ? "e":""} en ligne</small>) :(
+              ) : (
                 <small>Aucun niveau</small>
               )}
               {membre.fonction ? (
@@ -236,8 +287,8 @@ function PageMembres() {
     });
 
   let listeSelectValues = [];
-  selectValues &&
-    selectValues.forEach((value) => {
+  interfederations &&
+    interfederations.forEach((value) => {
       if (value.id) {
         listeSelectValues.push(
           <option key={value.id} value={value.id}>
@@ -261,24 +312,31 @@ function PageMembres() {
     navigate("/");
   };
   const goToNewEvent = () => {
-    if (niveauId) {
-      navigate("/membre-ajout/" + niveauId);
-    } else {
-      navigate("/membre-ajout/0");
-    }
+    navigate("/membre-ajout");
   };
 
   const [serverError, setServerError] = useState(false);
   if (serverError) {
     return (
       <div>
-        <center style={{height:"80vh", display:"flex", flexDirection:"column", justifyContent:"center"}}>
+        <center
+          style={{
+            height: "80vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
           <h2>Vous etes hors ligne</h2>
           <br />
-          <div  style={{fontWeight:"bold", fontSize:"1.2rem"}}>
-            <button onClick={() => {
-    navigate("/");
-  }}>Réessayer</button>
+          <div style={{ fontWeight: "bold", fontSize: "1.2rem" }}>
+            <button
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Réessayer
+            </button>
           </div>
         </center>
       </div>
@@ -288,11 +346,12 @@ function PageMembres() {
   return (
     <>
       <MainLayout>
-      <img
-            src="../icon/add.png"
-            className="add-button"
-            onClick={goToNewEvent}
-          />
+        <img
+          src="../icon/add.png"
+          className="add-button"
+          style={{ margin: "1.2em" }}
+          onClick={goToNewEvent}
+        />
         <section className="header-list-membre">
           <div>
             {user && (
@@ -312,29 +371,24 @@ function PageMembres() {
             )}
             <p>
               {data.length > 0 ? (
-                <h4
-                  className="nbr-membre"
-                >
-                  {data.length} membres
+                <h4 className="nbr-membre">
+                  {data.length}{" "}
+                  {niveauType == "enligne" ? "adhesions" : "membres"}
                 </h4>
               ) : data.length == 1 ? (
-                <h4
-                 className="nbr-membre"
-                >
-                  1 membre
+                <h4 className="nbr-membre">
+                  1 {niveauType == "enligne" ? "adhesion" : "membre"}
                 </h4>
               ) : (
-                <h4
-                 className="nbr-membre"
-                ></h4>
+                <h4 className="nbr-membre"></h4>
               )}
             </p>
-            {niveauType != "" && niveauType != "secretariat general" && niveauType != "enligne" && (
+            {currentTab == "interfederation" && (
               <div>
                 {selectValues && (
                   <div className="selectNiveau">
                     <label htmlFor="selectNiveau">
-                      Choisir {niveauType} :{" "}
+                      Choisir l'interfederation :{" "}
                     </label>
 
                     <select
@@ -342,36 +396,21 @@ function PageMembres() {
                       id="selectNiveau"
                       onChange={handleSelectNiveau}
                     >
-                      <option value="">Tous les {niveauType}s</option>
                       {listeSelectValues}
                     </select>
                   </div>
                 )}
               </div>
             )}
-            {niveauType == "Mon niveau" && (
-              <h2 style={{ marginTop: "0.1em", textTransform: "uppercase" }}>
-                {user.niveauType + " : " + user.libelle}
-              </h2>
-            )}
-            {niveauType == "" && (
+            {currentTab == "tous" && (
               <h2 style={{ marginTop: "0.1em", textTransform: "uppercase" }}>
                 Tous les membres
               </h2>
             )}
-            {niveauType == "aucun niveau" && (
+          
+            {currentTab == "adhesion" && (
               <h2 style={{ marginTop: "0.1em", textTransform: "uppercase" }}>
-                Pas de niveau
-              </h2>
-            )}
-            {niveauType == "secretariat general" && (
-              <h2 style={{ marginTop: "0.1em", textTransform: "uppercase" }}>
-                Secretariat
-              </h2>
-            )}
-            {niveauType == "enligne" && (
-              <h2 style={{ marginTop: "0.1em", textTransform: "uppercase" }}>
-                ADHESIONS EN LIGNE
+                ADHESIONS
               </h2>
             )}
           </div>
@@ -397,8 +436,8 @@ function PageMembres() {
           </div>
         </section>
         <section className="list-membres">
-        {loading || firstLoad ? (
-              <div
+          {loading || firstLoad ? (
+            <div
               style={{
                 display: "flex",
                 justifyContent: "center",
@@ -418,23 +457,25 @@ function PageMembres() {
                 <img className="wait" src="../img/wait.gif" alt="wait" />
               </center>
             </div>
-            ) : search.length > 3 ? (<>{searchResult}</>) : listeMembres.length > 0 ? (
-              <>{listeMembres}</>
-            ) : (
-              <>
-                 <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                height: "50vh",
-              }}
-            >
-              Aucun membre
-            </div>
-              </>
-            )}
+          ) : search.length > 3 ? (
+            <>{searchResult}</>
+          ) : listeMembres.length > 0 ? (
+            <>{listeMembres}</>
+          ) : (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "50vh",
+                }}
+              >
+                Aucun membre
+              </div>
+            </>
+          )}
 
           <dialog
             id="modal"
@@ -452,7 +493,7 @@ function PageMembres() {
                 position: "absolute",
                 top: "5px",
                 right: "5px",
-                margin:"0.3em"
+                margin: "0.3em",
               }}
               onClick={closeDialog}
             />
@@ -479,32 +520,15 @@ function PageMembres() {
                   color: "white",
                   width: "100%",
                   maxWidth: "300px",
-                  filter:"none"
+                  filter: "none",
                 }}
-                name=""
+                name="tous"
                 onClick={handleNiveauType}
                 className="dialog-btn"
               >
                 Tous les membres
               </button>
-              <button
-                className="dialog-btn"
-                style={{
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                  marginTop: "1em",
-                  padding: "0.2em 1em",
-                  backgroundColor: "green",
-                  color: "white",
-                  width: "100%",
-                  maxWidth: "300px",
-                                  filter:"none"
-                }}
-                name="secretariat general"
-                onClick={handleNiveauType}
-              >
-                Secretariat General
-              </button>
+
               <button
                 style={{
                   fontSize: "1.2rem",
@@ -515,31 +539,13 @@ function PageMembres() {
                   color: "white",
                   width: "100%",
                   maxWidth: "300px",
-                                  filter:"none"
+                  filter: "none",
                 }}
                 className="dialog-btn"
                 name="interfederation"
                 onClick={handleNiveauType}
               >
-                Interfederation
-              </button>
-              <button
-                style={{
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                  marginTop: "1em",
-                  padding: "0.2em 1em",
-                  backgroundColor: "green",
-                  color: "white",
-                  width: "100%",
-                  maxWidth: "300px",
-                                  filter:"none"
-                }}
-                className="dialog-btn"
-                name="federation"
-                onClick={handleNiveauType}
-              >
-                Federation
+                Interfederations
               </button>
               <button
                 className="dialog-btn"
@@ -552,66 +558,12 @@ function PageMembres() {
                   color: "white",
                   width: "100%",
                   maxWidth: "300px",
-                                  filter:"none"
+                  filter: "none",
                 }}
-                name="section"
+                name="adhesion"
                 onClick={handleNiveauType}
               >
-                Section
-              </button>
-              <button
-                className="dialog-btn"
-                style={{
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                  marginTop: "1em",
-                  padding: "0.2em 1em",
-                  backgroundColor: "green",
-                  color: "white",
-                  width: "100%",
-                  maxWidth: "300px",
-                                  filter:"none"
-                }}
-                name="sous section"
-                onClick={handleNiveauType}
-              >
-                Sous Section
-              </button>
-              <button
-                className="dialog-btn"
-                style={{
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                  marginTop: "1em",
-                  padding: "0.2em 1em",
-                  backgroundColor: "green",
-                  color: "white",
-                  width: "100%",
-                  maxWidth: "300px",
-                                  filter:"none"
-                }}
-                name="cellule"
-                onClick={handleNiveauType}
-              >
-                Cellule
-              </button>
-              <button
-                className="dialog-btn"
-                style={{
-                  fontSize: "1.2rem",
-                  fontWeight: "bold",
-                  marginTop: "1em",
-                  padding: "0.2em 1em",
-                  backgroundColor: "green",
-                  color: "white",
-                  width: "100%",
-                  maxWidth: "300px",
-                                  filter:"none"
-                }}
-                name="enligne"
-                onClick={handleNiveauType}
-              >
-                Adhésions en ligne
+                Adhésions
               </button>
             </div>
           </dialog>

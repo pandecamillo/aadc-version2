@@ -1,13 +1,16 @@
 import MainLayout from "../layout/mainlayout";
 import { useNavigate } from "react-router-dom";
 import React, { useRef, useEffect } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/authContext";
 
 function PageHome() {
   const navigate = useNavigate();
   const navRef = useRef(null);
   const navToggleRef = useRef(null);
   const sectionsRef = useRef([]);
+    const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const nav = navRef.current;
@@ -131,7 +134,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 20vh;
+  min-height: 75vh;
 }
 
 @keyframes heroFadeIn {
@@ -581,7 +584,7 @@ footer {
           </div>
         </div>
       </section>
-      <section className="adhesion-section section fade-in-scroll" id="adhesion" ref={(el) => (sectionsRef.current[4] = el)}>
+     {!user &&  <section className="adhesion-section section fade-in-scroll" id="adhesion" ref={(el) => (sectionsRef.current[4] = el)}>
         <h2>Rejoignez l'AADC</h2>
         <div className="section-content adhesion" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <img
@@ -590,11 +593,11 @@ footer {
             className="president-picture"
           />
           <Link
-            onClick={(event)=>{event.preventDefault(); navigate("/adhesion")}} 
+            onClick={(event)=>{event.preventDefault(); navigate("/adhesion-en-ligne")}} 
             className="adhesion-button"
           >Cliquez pour s'adhérer</Link>
         </div>
-      </section>
+      </section>}
       <section id="contact" className="section fade-in-scroll" ref={(el) => (sectionsRef.current[5] = el)}>
       <h2>Pour plus d'info</h2>
         <div className="section-content" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>

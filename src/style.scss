@@ -167,7 +167,7 @@ section {
   align-items: center;
   gap: 1.2em;
   padding: 1em;
-  background-color: rgba(0, 0, 0, 0.019);
+  background-color: rgba(233, 233, 233, 0.91);
   margin-bottom: 1em;
   img {
     min-width: 75px;
@@ -652,6 +652,12 @@ section {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 2fr));
+  img{
+    width: 70%;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
   label {
     font-size: 1.3rem;
     text-wrap: nowrap;
@@ -671,6 +677,12 @@ section {
   }
 }
 
+.form-evenement{
+  img{
+    object-fit: none;
+    width: 90%;
+  }
+}
 nav {
   transition: 0.4s ease;
   position: absolute;
@@ -864,7 +876,7 @@ margin-left: 2em;
 .liste-niveaux {
   display: flex;
   flex-wrap: wrap;
-  gap:1.2em;
+
 }
 
 
@@ -884,9 +896,9 @@ margin-left: 2em;
     width: 100%;
   }
   cursor: pointer;
-  width: 95%;
+  width: 100%;
   height: fit-content;
-  max-width: 300px;
+  max-width: 500px;
   height: fit-content;
   font-size: 1rem;
   background-color: rgb(229, 229, 229);
@@ -1296,7 +1308,15 @@ margin-left: 2em;
 .dark-mode {
   background-color: black;
   color: white;
-
+  .app-container, .etape-container, .adhesion-form-container{
+    background-color: black;
+    h3, .form-title{
+      color:white;
+    }
+    label, .recap-item{
+      color:rgba(255, 255, 255, 0.762);
+    }
+  }
   .section, #presentation, #objectifs, #adhesion, #contact{
     background-color:rgb(20, 20, 20);
     color:white;

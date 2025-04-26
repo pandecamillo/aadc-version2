@@ -47,6 +47,8 @@ import PageErreurPrivilege from "./pages/pageErreurPrivilege";
 import AdhesionMultiStep from "./pages/pageAdhesionMultiStep";
 import PageAdhesionEnLigne from "./pages/pagesAdhesionEnLigne";
 import PageInfoAdhesion from "./pages/pageInfoAdhesion";
+import AjoutMultiStep from "./pages/pageAjoutMultiStep";
+import PageInformationAjouter from "./pages/pageInformationAjouter";
 
 function PageRouter() {
   return (
@@ -57,18 +59,18 @@ function PageRouter() {
             <Route path="/" element={<PageChargement />} />
             <Route path="home" element={<PageHome />} />
             <Route path="/info-adhesion/:id" element={<PageInfoAdhesion/>}/>
-            <Route path="adhesion-en-ligne" element={<PageAdhesionEnLigne />} />
-            <Route path="adhesion" element={<AdhesionMultiStep />} />
+            <Route path="adhesion-en-ligne" element={<AdhesionMultiStep />} />
+            <Route path="information-ajouter" element={<PageInformationAjouter />} />
+            <Route path="liste-adhesions" element={<PageAdhesionEnLigne />} />
             <Route path="login" element={<PageLogin />}></Route>
             <Route path="membres" element={<PageMembres />} />
             <Route path="erreur-privilege" element={<PageErreurPrivilege />} />
-            <Route path="membre-ajout/:id" element={<AdhesionMultiStep />} />
+            <Route path="membre-ajout" element={<AjoutMultiStep />} />
             <Route path="interfederation" element={<PageInterfederation />} />
             <Route path="federation/:id" element={<PageFederation />} />
             <Route path="sous-section/:id" element={<PageSousSection />} />
             <Route path="section/:id" element={<PageSection />} />
             <Route path="cellule/:id" element={<PageCellule />} />
-            <Route path="formulaire" element={<AdhesionMultiStep/>}/>
             <Route
               path="membre-modifier/:id"
               element={<PageMembreModifier />}

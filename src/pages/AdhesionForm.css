@@ -7,7 +7,6 @@
   padding: 0;
   display: flex;
   justify-content: center;
-  min-height: 100vh;
 }
 
 .adhesion-form-container {
@@ -26,12 +25,12 @@
   text-align: center;
   color: #1c3e66;
   margin-bottom: 20px;
-  margin-top: 1em;
+  margin-top: 0.2em;
 }
 
 .form-wrapper {
   position: relative; /* Pour positionner les étapes absolute */
-  min-height: 400px; /* Ajuster selon le contenu le plus haut */
+  min-height:55vh; /* Ajuster selon le contenu le plus haut */
   overflow: hidden;
 }
 
@@ -42,7 +41,8 @@
   width: 100%;
   opacity: 1; /* Correction : Opacité à 1 pour tous les groupes */
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-  overflow-y: auto;
+  overflow-y: scroll;
+  height: 100%;
 }
 
 .etape-container.slide-in-right {
@@ -139,7 +139,8 @@
 
 .etape-sexe .sexe-button.selected {
   background-color: #4CAF50;
-  border-color: #4CAF50;
+  border-color: rgb(131, 255, 158);
+  color:white;
 }
 
 .etape-sexe .sexe-button img {
@@ -286,7 +287,7 @@
   display: flex;
   justify-content: center; /* Centrer les boutons */
   
-  margin-top: 20px;
+  margin-top: 40px;
   gap: 10px; /* Espacement entre les boutons */
   padding:10px;
 }

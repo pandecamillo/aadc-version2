@@ -206,7 +206,8 @@ function PageActivitesModifier() {
                 border: "black 2px solid",
                 minHeight:"250px",
                 maxHeight: "250px",
-                objectFit:"cover"
+                objectFit:"cover",
+                borderRadius:"0%"
               }}
               alt="profile"
               name="evenementImage"
@@ -219,6 +220,7 @@ function PageActivitesModifier() {
                 backgroundColor: "white",
                 position: "absolute",
                 width: "20%",
+                height: "20%",
                 borderRadius: "50%",
                 padding: "0.3em",
                 right: 0,

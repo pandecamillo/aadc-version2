@@ -118,7 +118,7 @@ function Header() {
           {!user && (
             <div className="nav-link">
               <img src="../icon/user.png" alt="" />
-              <Link onClick={(event)=>{event.preventDefault();toggleMenu(); navigate("/formulaire")}}  className="link">
+              <Link onClick={(event)=>{event.preventDefault();toggleMenu(); navigate("/adhesion-en-ligne")}}  className="link">
                 S'adhérer
               </Link>
             </div>
@@ -131,35 +131,12 @@ function Header() {
               </Link>
             </div>
           )}
-          {user && user.idFonction != null && (
-            <div className="nav-link">
-              <img src="../icon/niveaux.png" alt="" />
-              <Link onClick={(event)=>{event.preventDefault();toggleMenu(); navigate("/interfederation")}}  className="link">
-                Niveaux
-              </Link>
-            </div>
-          )}
+          
           {user && (
             <div className="nav-link">
               <img src="../icon/event.png" alt="" />
               <Link onClick={(event)=>{event.preventDefault();toggleMenu(); navigate("/activites")}}  className="link">
                 Communiqués
-              </Link>
-            </div>
-          )}
-          {user && (
-            <div className="nav-link">
-              <img src="../icon/chat.png" alt="" />
-              <Link onClick={(event)=>{event.preventDefault();toggleMenu(); if(currentPage != "forum")navigate("/forum")}}  className="link">
-                Forum
-              </Link>
-            </div>
-          )}
-                  {user && user.idFonction != null && (
-            <div className="nav-link">
-              <img src="../icon/adhesion.png" alt="" />
-              <Link onClick={(event)=>{event.preventDefault();toggleMenu(); navigate("/adhesion-en-ligne")}}  className="link">
-                Adhesions
               </Link>
             </div>
           )}

@@ -78,7 +78,7 @@ function PageInfoAdhesion(props) {
   };
 
   const goToHome = () => {
-    navigate("/home");
+    navigate("/liste-adhesions");
   };
 
   const goToEdit = () => {
@@ -177,12 +177,12 @@ function PageInfoAdhesion(props) {
                 </div>
                 <div className="zone">
                   <label htmlFor="lieu">Lieu de naissance : </label>
-                  <h2 name="nom">{membre.lieuNaiss}</h2>
+                  <h2 name="nom">{membre.lieuNaissance}</h2>
                 </div>
                 <div className="zone">
                   <label htmlFor="lieu">Date de naissance : </label>
                   <h2 name="nom">
-                    {convertirEnDateNaturel(membre.dateNaiss.split("T")[0])}
+                    {convertirEnDateNaturel(membre.dateNaissance.split("T")[0])}
                   </h2>
                 </div>
                 <div className="zone">
@@ -192,11 +192,11 @@ function PageInfoAdhesion(props) {
 
                 <div className="zone">
                   <label htmlFor="lieu">Profession : </label>
-                  <h2 name="nom">{membre.nom}</h2>
+                  <h2 name="nom">{membre.profession}</h2>
                 </div>
                 <div className="zone">
                   <label htmlFor="lieu">Telephone : </label>
-                  <h2 name="nom">{membre.profession}</h2>
+                  <h2 name="nom">{membre.telephone}</h2>
                 </div>
                 <div className="zone">
                   <label htmlFor="sexe">Type membre : </label>

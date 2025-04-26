@@ -172,7 +172,7 @@ useEffect(() => {
           />
           <div className="zoneqr">
             <center>
-              <h2>Scannez QR :</h2>
+              <h2>Scannez Carte :</h2>
             </center>
             <br />
             {qrError && (

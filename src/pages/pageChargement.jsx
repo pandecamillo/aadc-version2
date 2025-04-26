@@ -21,54 +21,12 @@ function PageChargement() {
     }
   };
 
-  const [information, setInformation] = useState("");
+  const [information, setInformation] = useState("La version gratuite est lente");
 
   const wakeFreeServer = async () => {
     try {
       // fausse requete pour reveiller le serveur gratuit
-      const date = new Date();
-      const heure = date.getHours();
-      let salutation = "";
-      let appelation = "";
-      if (heure >= 5 && heure < 12) {
-        salutation = "Bonjour";
-      } else if (heure >= 14 && heure < 18) {
-        salutation = "Bon après-midi";
-      } else if (heure >= 18 && heure < 22) {
-        salutation = "Bonsoir";
-      } else {
-        salutation = "Bonne nuit";
-      }
-      if(user){
-        if(user.sexe == "M"){
-            appelation = "monsieur"
-        }else{
-          appelation = "madame"
-        }
-      }
-      setTimeout(() => {
-        user ? setInformation(`${salutation}, ${user.prenom}`) : setInformation("Bienvenue à AADC");
-      }, 5000);
-      setTimeout(() => {
-        user ? setInformation(`Desolé, ${user.prenom}. C'est très lent`) : setInformation("Desolé pour la lenteur");
-      }, 15000);
-      setTimeout(() => {
-        setInformation("La version gratuite est lente");
-      }, 20000);
-      setTimeout(() => {
-        user ? setInformation(user.prenom + ", attends ...") : setInformation("Veuillez patienter ...");
-      }, 25000);
-      setTimeout(() => {
-        if (heure >= 5 && heure < 12) {
-           setInformation("Je vous souhaite bonne journée")
-        } else if (heure >= 14 && heure < 18) {
-          salutation = "Je vous souhaite bonne après-midi";
-        } else if (heure >= 18 && heure < 22) {
-          salutation = "Je vous souhaite bonne soirée";
-        } else {
-          salutation = "Je vous souhaite bonne nuit";
-        }
-      }, 32000);
+      
       await axios.get(connection);
       verifyUser();
       setLoading(false);
