@@ -40,7 +40,7 @@ function PageChargement() {
     "../img/male.png",
     "../img/female.png",
     "../img/maman.jpg",
-    "../img/mamama.png",
+    "../img/mamama.jpg",
     "../img/maman2.jpg",
     "../img/photo-en-groupe.jpg",
     "../img/kinshasa.png",
