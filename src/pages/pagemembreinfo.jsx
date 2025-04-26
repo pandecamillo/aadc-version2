@@ -108,7 +108,8 @@ function PageMembreInfo(props) {
       <div className="header-controls">
         <img src="../icon/back.png" className="back-btn" onClick={goToHome} />
         <div className="operation">
-   {/*{user && membre && membre.id != user.id && <img src="../icon/delete.png" onClick={openDialog} />}
+          {user && membre && membre.id != user.id && <img src="../icon/delete.png" onClick={openDialog} />}
+   {/*
 {user && membre && membre.id != user.id && <img src="../icon/edit.png" onClick={goToEdit} />}
           {user && membre && user.id == membre.id && <h3></h3>} */}
         </div>
