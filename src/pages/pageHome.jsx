@@ -601,7 +601,7 @@ footer {
       <section id="contact" className="section fade-in-scroll" ref={(el) => (sectionsRef.current[5] = el)}>
       <h2>Pour plus d'info</h2>
         <div className="section-content" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <p><strong>Téléphone:</strong>+243 896 019 088</p>
+          <p><strong>Téléphone:</strong> +243 896 019 088</p>
           <p><strong>Facebook:</strong> AADC Officiel</p>
         </div>
       </section>
