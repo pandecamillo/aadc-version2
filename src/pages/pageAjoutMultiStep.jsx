@@ -182,7 +182,7 @@ const EtapeAdresse = ({ nextStep, prevStep, updateFormData, formData }) => {
         <input autocomplete="off" type="text" id="avenue" name="avenue" value={formData.avenue || ''} onChange={handleChange} required />
       </div>
       <div className="form-group">
-        <label htmlFor="numero">Numéro:</label>
+        <label htmlFor="numero">N°:</label>
         <input autocomplete="off" type="text" id="numero" name="numero" value={formData.numero || ''} onChange={handleChange} />
       </div>
     </div>
@@ -436,7 +436,15 @@ const EtapeTermes = ({ nextStep, prevStep, updateFormData, formData }) => {
     <div className="etape-container etape-termes">
       <h3>Termes et Conditions</h3>
       <div className="termes-texte">
-        <p>Esque {formData.nom} {formData.postnom} {formData.prenom} accepte de s'engager à devenir membre de l'AADC, à respecter et à faire respecter les status, le règlement intérieur et résolutions des organes du parti ?</p>
+      <p>Je déclare par la présente : 
+          <ul>
+            <li>Avoir adhéré librement à l'AADC, à ses valeurs et principes fondamentaux;</li>
+            <li>Je m'engage à respecter et faire respecter les status, le règlement intérieur et les résolutions des organes du parti;</li>
+            <li>Je m'engage à préserver la démocratie, à contribuer au fonctionnement harmonieux de l'AADC par mes prestations et mes cotisations;</li>
+            <li>Je m'engage à assumer toutes les taches qui me seront confiées dans le respect des dispositions statuaires et des valeurs fondamentales du parti;</li>
+            <li>Je m'engage à m'abstenir de tout acte et toute démarche contraire aux intérêts du parti.</li>
+          </ul>
+          </p>
       </div>
       <div className="form-group">
         <label className="checkbox-label" >
@@ -541,7 +549,7 @@ const AdhesionForm = () => {
   const updateFormData = (data) => {
     setFormData(prevData => ({ ...prevData, ...data }));
   };
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault(); 
     let date = new Date();
   let dateNaturel = date.toLocaleString("fr-FR", {
@@ -555,7 +563,7 @@ const AdhesionForm = () => {
   formData.fonction =  formData.fonction == 0 ? null : formData.fonction;
     event.target.disabled = true;
     try {
-      let response = await axios.post(connection + "/adhesion", formData);
+      let response = axios.post(connection + "/adhesion", formData);
       let nomMembre = formData.nom;
       let prenomMembre = formData.prenom;
       let niveauMembre = formData.niveau;

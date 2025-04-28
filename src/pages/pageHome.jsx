@@ -487,9 +487,8 @@ footer {
           />
           <div>
             <p>
-              L'Alliance pour les Actions de Développement du Congo (AADC) est un
-              parti politique dynamique en République Démocratique du Congo, créé
-              le 22 février 2022.
+            AADC est un parti politique en République Démocratique
+            du Congo. Il est créé le 22 février 2022
             </p>
             <p>
               <strong>Présidente Nationale:</strong> Honorable Adèle KABENA MUAUKA
@@ -500,6 +499,7 @@ footer {
               Résidentiel, Commune de Limete/KINSHASA
             </p>
             <p><strong>Idéologie:</strong> Social Démocratie</p>
+            <p><strong>Couleurs:</strong> Rouge - jaune - verte</p>
           </div>
         </div>
       </section>
@@ -513,7 +513,7 @@ footer {
           <div>
             <p>
               La vision de l'Alliance pour les Actions de Développement du Congo
-              est de bâtir un Congo fort et prospère, un pays où il fait beau
+              est de bâtir <strong>un Congo fort et prospère</strong>, un pays où il fait beau
               vivre.
             </p>
             <p>
@@ -534,6 +534,9 @@ footer {
             alt="Objectifs de l'AADC - Flèches atteignant une cible"
           />
           <div>
+            <p>L'alliance pour les actions de développement du
+Congo a pour objectifs de :
+</p>
             <ul>
               <li>
                 Conquérir et conserver le pouvoir d'Eta par les voies
@@ -557,23 +560,69 @@ footer {
           </div>
         </div>
       </section>
+      <section id="ideologie" className="section" ref={(el) => (sectionsRef.current[1] = el)}>
+        <h2>Idéologie</h2>
+        <div className="section-content">
+          <img
+            src="../img/photo-en-groupe.jpg"
+            alt="Vision de l'AADC - Paysage urbain futuriste et prospère"
+          />
+          <div>
+            <p>
+            L'idéologie du Parti est « SOCIAL-DEMOCRATIE >»
+qui est l'ensemble des idées forces et des valeurs
+qui constituent le fondement des actions du parti
+en vue de faire participer le citoyen congolais à
+l'établissement des règles de jeu dans tous les
+domaines de la vie nationale, et libérer l'homme
+de toutes les contraintes qui l'étouffent.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section id="doctrine" className="section" ref={(el) => (sectionsRef.current[1] = el)}>
+        <h2>Doctrine et idéaux</h2>
+        <div className="section-content">
+          <img
+            src="../img/photo-en-groupe.jpg"
+            alt="Vision de l'AADC - Paysage urbain futuriste et prospère"
+          />
+          <div>
+            <p>
+            La doctrine du parti est le patriotisme qui consacre
+la défense des intérêts supérieurs de la Nation. La
+souveraineté de la République Démocratique du
+Congo, l'engagement de tout citoyen du
+reconstruire le Congo.
+            </p>
+            <p>L'AADC attend de ses militants qu'ils cultivent dans
+leur comportement quotidien, les vertus
+patriotiques ci-après:</p>
+<ul><li>Le patriotisme</li>
+<li>La transparence</li>
+<li>Le courage</li>
+<li>L'intégrité</li>
+<li>La modestie</li>
+<li>L'engagement solidaire</li>
+<li>La fidélité</li>
+<li>La non-violence</li></ul>
+          </div>
+        </div>
+      </section>
       <section id="organisation" className="section fade-in-scroll" ref={(el) => (sectionsRef.current[3] = el)}>
         <h2>Organisation du Parti</h2>
         <div className="section-content">
-          <img src="../img/maman2.jpg" className="maman-image" alt="" />
           <div>
-            <p><strong>Secrétaire Générale:</strong> Isabelle TSHIBUABUA</p>
-            <p>
-              Il est dirigé par un Secrétaire Général assisté de deux adjoints.
-            </p>
-            <h3>Au niveau national</h3>
+            <h3>Les Organes du parti sont :
+            </h3>
+            <p>Au niveau national</p>
             <ul>
               <li>Le congrès</li>
               <li>Le bureau politique</li>
               <li>Le conseil National</li>
               <li>Le Secrétariat Général</li>
             </ul>
-            <h3>Au Niveau Provincial</h3>
+            <p>Au Niveau Provincial</p>
             <ul>
               <li>Comité Interfédéral</li>
               <li>Comité Fédéral</li>
@@ -581,6 +630,16 @@ footer {
               <li>Comité Sous-sectionnaire</li>
               <li>Comité Cellulaire</li>
             </ul>
+            <p>Le Secrétariat Général est l'organe d'exécution et
+de coordination des activités et des programmes
+du parti. Il assure la gestion quotidienne du parti
+et Prépare les dossiers destinés au Conseil
+National, au Bureau Politique et au Congrès.</p>
+<p>Il est dirigé par un Secrétaire Général assisté de
+deux adjoints
+</p>
+<img src="../img/maman2.jpg" className="maman-image" alt="" />
+<center><p><strong>Isabelle TSHIBUABUA</strong> <br /> Secrétaire Générale AADC</p></center>
           </div>
         </div>
       </section>
@@ -601,13 +660,14 @@ footer {
       <section id="contact" className="section fade-in-scroll" ref={(el) => (sectionsRef.current[5] = el)}>
       <h2>Pour plus d'info</h2>
         <div className="section-content" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-          <p><strong>Téléphone:</strong> +243 896 019 088</p>
-          <p><strong>Facebook:</strong> AADC Officiel</p>
+          <p><strong>Téléphone:</strong>  (+243) 973 951 270</p>
+          <p><strong>Email:</strong>  aadcnewsofficiel@gmail.com
+          </p>
         </div>
       </section>
       <footer>
-        <p><a href="AADC.apk" className="app-link">Telecharger l'Application</a>
-          <br /><br /><small>Powered by Congosoft</small></p>
+        <p> <a href="AADC.apk" className="app-link">Telecharger l'Application</a>
+          <small style={{display:"none"}}>Powered by Congosoft</small></p>
       </footer>
     </MainLayout>
   );

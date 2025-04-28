@@ -131,9 +131,10 @@ function PageInfoAdhesion(props) {
                 justifyContent: "center",
                 alignItems: "center",
                 height: "30vh",
+                width:"100%"
               }}
             >
-              <img className="wait" src="../img/wait.gif" alt="wait" />
+                 <img style={{width:'50px', height:'50px'}} className="wait" src="../img/wait.gif" alt="wait" />
             </center>
           </div>
         ) : (
@@ -187,7 +188,7 @@ function PageInfoAdhesion(props) {
                 </div>
                 <div className="zone">
                   <label htmlFor="lieu">Adresse : </label>
-                  <h2 name="nom">{membre.adresse}</h2>
+                  <h2 name="nom">c/{membre.commune} <br /> av/{membre.avenue} <br />n°{membre.numero}</h2>
                 </div>
 
                 <div className="zone">

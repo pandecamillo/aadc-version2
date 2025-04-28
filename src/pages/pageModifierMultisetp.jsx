@@ -1,14 +1,26 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import './AdhesionForm.css'; // Importez le fichier CSS global - à commenter ou supprimer si problème
 import profilePlaceholder from './profile.png'; // Placeholder pour la photo de profil
 import axios from 'axios';
 import connection from '../data/connection';
-import {useNavigate } from 'react-router-dom';
-import io from 'socket.io-client';
+import { useLocation, useNavigate } from "react-router-dom";
+import io from "socket.io-client";
 import imageCompression from "browser-image-compression";
 import MainLayout from '../layout/mainlayout';
+import { AuthContext } from '../context/authContext';
+const socket = io.connect(connection);
 
-const socket = io(connection);
+
+
+  const convertirEnHtml = (dateSql) => {
+    const date = dateSql.split("T")[0];
+    return date;
+  };
+
+
+  
+
+
 
 
 const EtapeSexe = ({ nextStep, updateFormData, formData }) => {
@@ -16,16 +28,79 @@ const EtapeSexe = ({ nextStep, updateFormData, formData }) => {
     updateFormData({ sexe });
   };
 
+
   return (
     <div className="etape-container etape-sexe slide-in-right">
-      <h3>Quel est votre sexe ?</h3>
+      <h3>Quel est son sexe ?</h3>
       <div className="sexe-selection">
         <button type="button" onClick={() => handleSexeChange('M')} className={`sexe-button ${formData.sexe == "M" && 'selected'}`}>
-          <img src="../img/male.png" alt="Homme" className="sexe-image" /> <p>Homme</p>
+          <img src="../img/male.png" alt="Homme"  className="sexe-image" /> <p>Homme</p>
         </button>
         <button type="button" onClick={() => handleSexeChange('F')} className={`sexe-button ${formData.sexe == "F" && 'selected'}`}>
           <img src="../img/female.png" alt="Femme" className="sexe-image" /> <p>Femme</p>
         </button>
+      </div>
+    </div>
+  );
+};
+
+
+const EtapeFonction = ({ nextStep, prevStep, updateFormData, formData }) => {
+  const handleTypeChange = (e) => {
+    updateFormData({ fonction : e.target.value });
+    const selectElement = e.target;
+    const selectedIndex = selectElement.selectedIndex;
+    const selectedText = selectElement.options[selectedIndex].text;
+    updateFormData({ fonctionLibelle: selectedText});
+  };
+
+  const handleNext = () => {
+    if (formData.typeMembre) {
+      nextStep();
+    } else {
+      alert('Veuillez sélectionner une fonction.');
+    }
+  };
+
+
+  const [typeMembreSelect, setTypeMembreSelect] = useState([]);
+
+  
+  
+  useEffect(() => {
+    const fetchSelect = async () => {
+      try {
+        let values = await axios.get(connection + "/lire-fonction/");
+        setTypeMembreSelect(values.data);
+      } catch (error) {
+      }
+    };
+    fetchSelect();
+  }, []);
+
+  
+  let listTypeMembreSelect = [];
+  typeMembreSelect &&
+    typeMembreSelect.forEach((value) => {
+      if (value.id) {
+        listTypeMembreSelect.push(
+          <option key={value.id} value={value.id}>
+            {value.libelle}
+          </option>
+        );
+      }
+    });
+
+  return (
+    <div className="etape-container etape-type-membre">
+      <h3>Quel est sa fonction ?</h3>
+      <div className="form-group">
+        <label htmlFor="typeMembre">Sélectionnez la fonction:</label>
+        <select id="typeMembre" name="typeMembre" value={formData.fonction || ''} onChange={handleTypeChange} required>
+          <option value="">-- Choisir --</option>
+          <option value='0'>Aucun</option>
+          {listTypeMembreSelect}
+        </select>
       </div>
     </div>
   );
@@ -38,7 +113,7 @@ const EtapePresentation = ({ nextStep, prevStep, updateFormData, formData }) => 
 
   return (
     <div className="etape-container etape-presentation">
-      <h3>Quel est votre nom complet ?</h3>
+      <h3>Quel est son nom complet ?</h3>
       <div className="form-group">
         <label htmlFor="nom">Nom:</label>
         <input autocomplete="off" type="text" id="nom" name="nom" value={formData.nom || ''} onChange={handleChange} required />
@@ -67,6 +142,9 @@ const EtapeAdresse = ({ nextStep, prevStep, updateFormData, formData }) => {
     const selectedText = selectElement.options[selectedIndex].text;
     updateFormData({ province: selectedText});
   }
+
+  
+  
 
   const [interFederationSelect, setInterFederationSelect] = useState([]);
 
@@ -98,7 +176,7 @@ const EtapeAdresse = ({ nextStep, prevStep, updateFormData, formData }) => {
 
   return (
     <div className="etape-container etape-adresse">
-      <h3>Vous habitez où ?</h3>
+      <h3>Où {formData.sexe == "M" ? 'il' : 'elle'} habite ?</h3>
       <div className="form-group">
         <label htmlFor="typeMembre">Province:</label>
         <select id="typeMembre" name="typeMembre" value={formData.niveau || ''} onChange={handleNiveau} required>
@@ -115,7 +193,7 @@ const EtapeAdresse = ({ nextStep, prevStep, updateFormData, formData }) => {
         <input autocomplete="off" type="text" id="avenue" name="avenue" value={formData.avenue || ''} onChange={handleChange} required />
       </div>
       <div className="form-group">
-        <label htmlFor="numero">N°:</label>
+        <label htmlFor="numero">Numéro:</label>
         <input autocomplete="off" type="text" id="numero" name="numero" value={formData.numero || ''} onChange={handleChange} />
       </div>
     </div>
@@ -126,6 +204,7 @@ const EtapeOrigine = ({ nextStep, prevStep, updateFormData, formData }) => {
   const handleChange = (e) => {
     updateFormData({ [e.target.name]: e.target.value });
   };
+
   const handleProvinceOrigine = (e) =>{
     updateFormData({ provinceOrigineCode: e.target.value});
     const selectElement = e.target;
@@ -133,6 +212,7 @@ const EtapeOrigine = ({ nextStep, prevStep, updateFormData, formData }) => {
     const selectedText = selectElement.options[selectedIndex].text;
     updateFormData({ provinceOrigine: selectedText});
   }
+
   const [interFederationSelect, setInterFederationSelect] = useState([]);
   useEffect(() => {
     const fetchSelect = async () => {
@@ -160,7 +240,7 @@ const EtapeOrigine = ({ nextStep, prevStep, updateFormData, formData }) => {
 
   return (
     <div className="etape-container etape-origine">
-      <h3>Où et quand etes vous né{formData.sexe == "M" ? '' : 'e'} ?</h3>
+      <h3>Où et quand est {formData.sexe == "M" ? 'il' : 'elle'} né{formData.sexe == "M" ? '' : 'e'} ?</h3>
       <div className="form-group">
         <label htmlFor="lieuNaissance">Lieu de Naissance:</label>
         <input autocomplete="off" type="text" id="lieuNaissance" name="lieuNaissance"  value={formData.lieuNaissance || ''} onChange={handleChange} required />
@@ -187,7 +267,7 @@ const EtapeVieSociale = ({ nextStep, prevStep, updateFormData, formData }) => {
 
   return (
     <div className="etape-container etape-vie-sociale">
-      <h3>Quel est votre Vie Sociale ?</h3>
+      <h3>Quel est sa Vie Sociale ?</h3>
       <div className="form-group">
         <label htmlFor="etatCivil">État Civil:</label>
         <select id="etatCivil" name="etatCivil" value={formData.etatCivil || ''} onChange={handleChange} required>
@@ -213,7 +293,7 @@ const EtapeContact = ({ nextStep, prevStep, updateFormData, formData }) => {
 
   return (
     <div className="etape-container etape-contact">
-      <h3>Comment puis je vous contacter ?</h3>
+      <h3>Comment on peut {formData.sexe == "M" ? 'le' : 'la'} contacter ?</h3>
       <div className="form-group">
         <label htmlFor="telephone">Téléphone:</label>
         <input autocomplete="off" type="tel" id="telephone" name="telephone" value={formData.telephone || ''} onChange={handleChange} required />
@@ -269,7 +349,7 @@ function convertToBase64(file, event) {
 
   return (
     <div className="etape-container etape-photo">
-      <h3>Puis je voir votre visage ?</h3>
+      <h3>La photo de son visage ?</h3>
       <div className="form-group">
         <div className="profile-image-container" onClick={importData}>
           <img src={previewImage} alt="Votre Profil" className="profile-image" />
@@ -338,9 +418,9 @@ const EtapeTypeMembre = ({ nextStep, prevStep, updateFormData, formData }) => {
 
   return (
     <div className="etape-container etape-type-membre">
-      <h3>Quel type de membre vous etes ?</h3>
+      <h3>Quel type de membre ?</h3>
       <div className="form-group">
-        <label htmlFor="typeMembre">Sélectionnez votre type de membre:</label>
+        <label htmlFor="typeMembre">Sélectionnez le type de membre:</label>
         <select id="typeMembre" name="typeMembre" value={formData.typeMembre || ''} onChange={handleTypeChange} required>
           <option value="">-- Choisir --</option>
           {listTypeMembreSelect}
@@ -349,7 +429,6 @@ const EtapeTypeMembre = ({ nextStep, prevStep, updateFormData, formData }) => {
     </div>
   );
 };
-
 
 const EtapeTermes = ({ nextStep, prevStep, updateFormData, formData }) => {
   const handleAcceptChange = (e) => {
@@ -368,20 +447,12 @@ const EtapeTermes = ({ nextStep, prevStep, updateFormData, formData }) => {
     <div className="etape-container etape-termes">
       <h3>Termes et Conditions</h3>
       <div className="termes-texte">
-        <p>Je déclare par la présente : 
-          <ul>
-            <li>Avoir adhéré librement à l'AADC, à ses valeurs et principes fondamentaux;</li>
-            <li>Je m'engage à respecter et faire respecter les status, le règlement intérieur et les résolutions des organes du parti;</li>
-            <li>Je m'engage à préserver la démocratie, à contribuer au fonctionnement harmonieux de l'AADC par mes prestations et mes cotisations;</li>
-            <li>Je m'engage à assumer toutes les taches qui me seront confiées dans le respect des dispositions statuaires et des valeurs fondamentales du parti;</li>
-            <li>Je m'engage à m'abstenir de tout acte et toute démarche contraire aux intérêts du parti.</li>
-          </ul>
-          </p>
+        <p>Esque {formData.nom} {formData.postnom} {formData.prenom} accepte de s'engager à devenir membre de l'AADC, à respecter et à faire respecter les status, le règlement intérieur et résolutions des organes du parti ?</p>
       </div>
       <div className="form-group">
         <label className="checkbox-label" >
           <input autocomplete="off" type="checkbox" style={{marginLeft:"auto"}} name="accepte" checked={formData.accepte || false} onChange={handleAcceptChange} />
-          J'accepte.
+          {formData.sexe == "M" ? 'il' : 'elle'} accepte.
         </label>
       </div>
     </div>
@@ -401,9 +472,11 @@ const Recapitulatif = ({ formData, prevStep, handleSubmit }) => {
     return age;
   };
 
+
   return (
     <div className="etape-container recapitulatif">
-      <h3>Voici vos informations</h3>
+      <br />
+      <h3>Voici ses informations</h3>
       <div className="recap-item"><strong>Nom:</strong> {formData.nom}</div> <br />
       {formData.postnom && <div className="recap-item"><strong>Postnom:</strong> {formData.postnom}</div>} <br />
       <div className="recap-item"><strong>Prénom:</strong> {formData.prenom}</div> <br />
@@ -420,9 +493,11 @@ const Recapitulatif = ({ formData, prevStep, handleSubmit }) => {
       {formData.telephone && <div className="recap-item"><strong>Téléphone:</strong> {formData.telephone}</div>} <br />
       {formData.email && <div className="recap-item"><strong>Adresse Email:</strong> {formData.email}</div>} <br />
       {formData.typeMembre && <div className="recap-item"><strong>Type de Membre:</strong> {formData.typeMembreLibelle}</div>}
+      {formData.fonction && <div className="recap-item"><strong>Type de Membre:</strong> {formData.fonctionLibelle}</div>}
     </div>
   );
 };
+
 
 const AdhesionForm = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -433,21 +508,22 @@ const AdhesionForm = () => {
   const nom = formData.nom;
 
   const nextStep = () => {
-    if((currentStep == 1)&& (!formData.sexe)){alert(`AADC : Veuillez chosir votre sexe, s'il vous plait!`);return}
-    if((currentStep == 2)&& (!formData.nom || !formData.prenom || ! formData.postnom)){alert(`AADC : S'il vous plait, ${appelation} presentez vous !`);return}
-    if((currentStep == 3) && (!formData.province || !formData.commune || ! formData.avenue || ! formData.numero)){alert(`AADC : Entrez votre adresse complet, ${appelation} ${nom}`);return}
+    if((currentStep == 1)&& (!formData.sexe)){alert(`AADC : Veuillez chosir le sexe, s'il vous plait!`);return}
+    if((currentStep == 2)&& (!formData.nom || !formData.prenom || ! formData.postnom)){alert(`AADC : S'il vous plait, presentez ${formData.sexe == "M" ? 'le' : 'la'} ${appelation} !`);return}
+    if((currentStep == 3) && (!formData.province || !formData.commune || ! formData.avenue || ! formData.numero)){alert(`AADC : Entrez l'adresse complet de ${appelation} ${nom}`);return}
     if((currentStep == 4)&& (!formData.lieuNaissance || !formData.dateNaissance || ! formData.provinceOrigine)){
       if(!formData.dateNaissance && formData.lieuNaissance && formData.provinceOrigine){
-        alert(`AADC : Vous avez oubliez de donner la date de naissance, ${appelation} ${nom}`)
+        alert(`AADC : Vous avez oubliez de donner la date de naissance de ${appelation} ${nom}`)
       }else{
-        alert("AADC : " + appelation + " " + nom + ", veuillez remplir tous les champs, s'il vous plait")
+        alert("AADC : Veuillez remplir tous ses champs pour " + appelation + " " + nom )
       }
       return}
-    if((currentStep == 5) && (!formData.etatCivil || !formData.profession)){alert("AADC : Parlez de votre vie social, " + appelation + " " + nom);return}
-    if((currentStep == 6) && (!formData.telephone || !formData.email)){alert(`AADC : Donnez tous vos contacts, ${appelation} ${nom}`);return}
-    if(currentStep == 7 && !formData.photo){alert(`AADC : Nous avons besoin de savoir votre visage, ${appelation} ${nom}`);return}
-    if(currentStep == 8 && !formData.typeMembre){alert(`AADC : Veuillez choisir le type ${appelation} ${nom}`);return}
-    if(currentStep == 9 && !formData.accepte){alert(`AADC : ${appelation} ${nom}, vous devez d'abord accepter avant de devenir membre.`);return}
+    if((currentStep == 5) && (!formData.etatCivil || !formData.profession)){alert("AADC : Parlez de la vie social de " + appelation + " " + nom);return}
+    if((currentStep == 6) && (!formData.telephone || !formData.email)){alert(`AADC : Donnez tous les contacts de ${appelation} ${nom}`);return}
+    if(currentStep == 7 && !formData.photo){alert(`AADC : Nous avons besoin de savoir le visage de ${appelation} ${nom}`);return}
+    if(currentStep == 8 && !formData.typeMembre){alert(`AADC : Veuillez choisir le type pour ${appelation} ${nom}`);return}
+    if(currentStep == 9 && !formData.fonction){alert(`AADC : Veuillez choisir la fonction pour ${appelation} ${nom} sinon vous appuyez sur aucun`);return}
+    if(currentStep == 10 && !formData.accepte){alert(`AADC : ${appelation} ${nom} doit d'abord accepter, avant de devenir membre.`);return}
     if (formRef.current && isMobile) {
       formRef.current.classList.add('slide-out-left');
       setTimeout(() => {
@@ -477,7 +553,7 @@ const AdhesionForm = () => {
     setFormData(prevData => ({ ...prevData, ...data }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault(); 
     let date = new Date();
   let dateNaturel = date.toLocaleString("fr-FR", {
@@ -486,23 +562,22 @@ const AdhesionForm = () => {
     month: "short",
     year: "numeric",
   });
+ 
   formData.dateAdhesion = dateNaturel;
   formData.enLigne = 'oui'
-  formData.fonction = null
+  formData.fonction =  formData.fonction == 0 ? null : formData.fonction;
     event.target.disabled = true;
     try {
-      let response = axios.post(connection + "/adhesion", formData);
+      let response = await axios.post(connection + "/adhesion", formData);
       let nomMembre = formData.nom;
       let prenomMembre = formData.prenom;
-      let niveauMembre = formData.province;
+      let niveauMembre = formData.niveau;
       let telephoneMembre = formData.telephone;
       let idMembre = response.data.insertedId;
       
-      navigate('/information', {
-        state: { idMembre, nomMembre, prenomMembre, niveauMembre, telephoneMembre }
-      });
-
-      socket.emit("membre");
+      navigate('/information-ajouter');
+      event.target.disabled = false;
+      socket.emit('membre');
     } catch (error) {
     
     }
@@ -527,9 +602,11 @@ const AdhesionForm = () => {
         return <EtapePhoto nextStep={nextStep} prevStep={() => prevStep(6)} updateFormData={updateFormData} formData={formData} />;
       case 8:
         return <EtapeTypeMembre nextStep={nextStep} prevStep={() => prevStep(7)} updateFormData={updateFormData} formData={formData} />;
-      case 9:
-        return <EtapeTermes nextStep={nextStep} prevStep={() => prevStep(8)} updateFormData={updateFormData} formData={formData} />;
-      case 10:
+      case 9 :
+        return <EtapeFonction nextStep={nextStep} prevStep={() => prevStep(8)} updateFormData={updateFormData} formData={formData} />;
+        case 10:
+        return <EtapeTermes nextStep={nextStep} prevStep={() => prevStep(9)} updateFormData={updateFormData} formData={formData} />;
+      case 11:
         return <Recapitulatif formData={formData} prevStep={prevStep} handleSubmit={handleSubmit} />;
       default:
         return null;
@@ -542,20 +619,20 @@ const AdhesionForm = () => {
   return (
     <div className="adhesion-form-container">
       
-      <h2 className="form-title">ADHESION</h2>
+      <h2 className="form-title">NOUVEAU MEMBRE</h2>
       <div className="progress-bar">
         <div className="progress-indicator" style={{ width: `${(currentStep - 1) * (100 / 9)}%` }}></div>
       </div>
       <div className="form-wrapper" ref={formRef}>
         {renderStep()}
       </div>
-      {(currentStep < 10 && currentStep != 1) && (
+      {(currentStep < 11 && currentStep != 1) && (
         <div className="form-navigation">
           {currentStep > 1 && <button type="button" onClick={() => prevStep()} className="button prev-button">Précédent</button>}
           <button type="button" onClick={nextStep} className="button next-button">Suivant</button>
         </div>
       )}
-      {currentStep === 10 && currentStep != 1 && (
+      {currentStep === 11 && currentStep != 1 && (
         <div className="form-navigation">
           <button type="button" onClick={() => prevStep(1)} className="button prev-button">Modifier</button>
           <button type="submit" onClick={handleSubmit} className="button submit-button">Terminer</button>
@@ -563,7 +640,7 @@ const AdhesionForm = () => {
       )}
             {currentStep === 1 && (
         <div className="form-navigation">
-          <button type="button" onClick={() => navigate("/home")} className="button prev-button">Anuller</button>
+          <button type="button" onClick={() => navigate("/membres")} className="button prev-button">Anuller</button>
           <button type="submit" onClick={nextStep} className="button submit-button">Suivant</button>
         </div>  
       )}
@@ -571,8 +648,69 @@ const AdhesionForm = () => {
   );
 };
 
-const AdhesionMultiStep = () => {
 
+
+const ModifierMultiStep = () => {
+    const { user } = useContext(AuthContext);
+    const location = useLocation();
+    const [typeMembreSelect, setTypeMembreSelect] = useState([]);
+    const [fonctionSelect, setFonctionSelect] = useState([]);
+    const [niveauSelect, setNiveauSelect] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [membre, setMembre] = useState({});
+    let locationActualiteId = parseInt(location.pathname.split("/")[2]);
+    let navigate = useNavigate();
+    
+
+ 
+  useEffect(() => {
+    if(!user || user && user.idFonction == null){
+      alert("AADC : vous n'êtes pas autorisé à accèder à cette information")
+      navigate("/home");
+      return
+    }
+    const fetchData = async () => {
+      try {
+        const res = await axios.get(
+          connection + "/lire-membre/" + locationActualiteId
+        );
+        setMembre(res.data);
+        membre.dateNaissance = convertirEnHtml(membre.dateNaiss)
+        console.log(membre)
+      } catch (error) {
+        setServerError(true);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const [serverError, setServerError] = useState(false);
+  if (serverError) {
+    return (
+      <div>
+        <center
+          style={{
+            height: "80vh",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
+        >
+          <h2>Vous etes hors ligne</h2>
+          <br />
+          <div style={{ fontWeight: "bold", fontSize: "1.2rem" }}>
+            <button
+              onClick={() => {
+                navigate("/");
+              }}
+            >
+              Réessayer
+            </button>
+          </div>
+        </center>
+      </div>
+    );
+  }
 
   return (
     <MainLayout>
@@ -596,4 +734,4 @@ function useMediaQuery(query) {
   return matches;
 }
 
-export default AdhesionMultiStep;
+export default ModifierMultiStep;

@@ -263,7 +263,7 @@ function PageMaCarte() {
                     )}
                     <div className="zone-info">
                       <span className="libelle">ADRESSE : </span>
-                      <p style={{ width: "55%"}}>{data.adresse}</p>
+                      <p style={{ width: "55%"}}>c/{data.commune} <br /> av/{data.avnue} <br /> n°{data.numero}</p>
                     </div>
                   </div>
                   <img

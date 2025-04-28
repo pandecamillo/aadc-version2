@@ -109,9 +109,7 @@ function PageMembreInfo(props) {
         <img src="../icon/back.png" className="back-btn" onClick={goToHome} />
         <div className="operation">
           {user && membre && membre.id != user.id && <img src="../icon/delete.png" onClick={openDialog} />}
-   {/*
-{user && membre && membre.id != user.id && <img src="../icon/edit.png" onClick={goToEdit} />}
-          {user && membre && user.id == membre.id && <h3></h3>} */}
+        
         </div>
       </div>
       <div  style={{ height:"80vh", overflowY:"scroll" }}>
@@ -132,9 +130,10 @@ function PageMembreInfo(props) {
                 justifyContent: "center",
                 alignItems: "center",
                 height: "30vh",
+                width:"100%"
               }}
             >
-              <img className="wait" src="../img/wait.gif" alt="wait" />
+              <img style={{width:'50px', height:'50px'}} className="wait" src="../img/wait.gif" alt="wait" />
             </center>
           </div>
         ) : (
@@ -188,7 +187,7 @@ function PageMembreInfo(props) {
                 </div>
                 <div className="zone">
                   <label htmlFor="lieu">Adresse : </label>
-                  <h2 name="nom">{membre.adresse}</h2>
+                  <h2 name="nom">c/{membre.commune} <br /> av/{membre.avenue} <br />n°{membre.numero}</h2>
                 </div>
 
                 <div className="zone">

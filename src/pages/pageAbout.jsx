@@ -47,25 +47,28 @@ function PageAbout() {
               <small>{"<< AADC >> "}</small>
             </div>
             <div className="information">
-              <h2> C'est quoi AADC ? </h2>
-              <p>
-              L’Alliance pour les Actions de Développement du Congo (AADC) est un mouvement citoyen engagé pour le progrès et le bien-être de la population congolaise. L’AADC se veut une plateforme de rassemblement des forces vives du pays, œuvrant pour un développement durable, équitable et participatif.
-              </p>
+             
             </div>
           </div>
         </section>
         <section className="plus-info">
-          <h2 style={{margin:"0.4em 0em",}}>Notre slogan</h2>
-          <p>
-            AADC, victoire ! <br /> AADC, victoire ! <br /> AADC, victoire, victoire, victoire !
-         </p> 
-          <h2 style={{margin:"0.8em 0em",}}>Il a comme objectif</h2>
-          <ul>
-            <li>Conquérir et conserver le pourvoir d'Etat par les voies démocratiques</li>
-         <li>Lutter contre les antivaleurs, les inégalités sociales qui constituent un frein considérable au développement de nos communautés et par conséquent de la société toute entière</li>
-         <li>Encourager et soutenir des projets de dévéloppement au niveau de nos communautés et au niveau national</li>  
-         <li>Apporter une expertise politique adéquate afin de permettre aux congolais de se sentir chez soi et de développer les valeurs patriotiques</li>
-          </ul>
+          <h2 style={{margin:"0.4em 0em",}}> L'hymne du parti ? </h2> <br />
+              <p>
+              1) Alliance pour les actions du développement du Congo, unis comme un seul homme pour la liberté.
+Construire l'excellence pour le social d'un Congo fort dans le patriotisme et l'intégrité.<br /> <br />
+<strong>Victoire victoire AADC victoire, dans l'unité, le travail, l'équité nous vaincrons. X2 </strong> <br /> <br /> <br />
+
+2) levons-nous patriotes pour la prospérité du Congo contre les ennemis de notre héritage, contre le tribalisme, contre les anti-valeurs dans l'unité nous vaincrons. <br /> <br />
+<strong>Victoire victoire AADC victoire, dans l'unité, le travail, l'équité nous vaincrons. X2
+</strong>
+              </p>
+              <br /> <br />
+              <audio id="audioPlayer" controls>
+  <source src="../img/hymne.mp3" type="audio/mpeg"/>
+  Your browser does not support the audio element.
+</audio>
+<br /> <br />
+       
         </section>
           <section className="apropos deux">
             <div className="information">
@@ -82,8 +85,9 @@ function PageAbout() {
             </center>
           </section>
           <footer>
-           <center> <p>
-              <strong> Crée par : </strong>
+           
+             {/* <center> <p>
+              <strong> Developpé par : </strong>
               <br />
               <br />
               <div>
@@ -99,8 +103,7 @@ function PageAbout() {
                 }}
               >
                 Analyste
-              </span></div>{" "}
-             {/* <!--  <div>
+              </span></div>{" "}<!--  <div>
               <a href="https://wa.me/+243812879044">Jésus Crhist</a>{" "}
               <span
                 style={{
@@ -113,7 +116,7 @@ function PageAbout() {
                 }}
               >
                 Concepteur
-              </span></div>{" "} --> */}
+              </span></div>{" "}
               <div>
               <a href="https://wa.me/+243898652101">Camille Pande</a>{" "}
               <span
@@ -129,11 +132,9 @@ function PageAbout() {
                 Programmeur
               </span>
               </div>
-            </p></center>
-            <br />
-            <br />
-            <br />
-<center style={{marginBottom:"1em"}}>            <strong > Télécharger : </strong></center>
+            </p></center> --> */}
+              
+<center style={{marginBottom:"1em"}}>            <strong > Télécharger Application : </strong></center>
           <div style={{textAlign:"right", width:"90%", margin:"auto", }}> 
            <a href="../img/AADC.apk" download style={{border:"none"}}> <img src="../icon/android.png" width="80px" /></a>
             <a href="#" style={{border:"none"}}><img onClick={(event)=>{event.preventDefault();openDialog2()}} src="../icon/ios.png" width="80px" style={{marginLeft:"1em"}}/> </a>

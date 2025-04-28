@@ -140,6 +140,15 @@ function Header() {
               </Link>
             </div>
           )}
+                    
+                    {user && (
+            <div className="nav-link">
+              <img src="../icon/chat.png" alt="" />
+              <Link onClick={(event)=>{event.preventDefault();toggleMenu(); navigate("/forum")}}  className="link">
+                Forum
+              </Link>
+            </div>
+          )}
           {user && (
             <div className="nav-link">
               <img src="../icon/settings.png" alt="" />

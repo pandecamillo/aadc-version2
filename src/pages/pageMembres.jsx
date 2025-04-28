@@ -215,6 +215,7 @@ function PageMembres() {
 
   const fetchInterfederation = async(interfederation)=>{
     setSearch("");
+    setLoading(true);
     let res = await axios.get(
           connection + "/lire-membres-niveauId/" + interfederation
         );

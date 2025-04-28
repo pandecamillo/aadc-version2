@@ -49,6 +49,7 @@ import PageAdhesionEnLigne from "./pages/pagesAdhesionEnLigne";
 import PageInfoAdhesion from "./pages/pageInfoAdhesion";
 import AjoutMultiStep from "./pages/pageAjoutMultiStep";
 import PageInformationAjouter from "./pages/pageInformationAjouter";
+import ModifierMultiStep from "./pages/pageModifierMultisetp";
 
 function PageRouter() {
   return (
@@ -73,11 +74,11 @@ function PageRouter() {
             <Route path="cellule/:id" element={<PageCellule />} />
             <Route
               path="membre-modifier/:id"
-              element={<PageMembreModifier />}
+              element={<ModifierMultiStep />}
             />
             <Route
               path="compte-modifier/:id"
-              element={<PageModifierCompte />}
+              element={<ModifierMultiStep />}
             />
             <Route path="membre-info/:id" element={<PageMembreInfo />} />
             <Route path="membres-niveau/:id" element={<PageMembresNiveau />} />

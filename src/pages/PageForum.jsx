@@ -337,9 +337,10 @@ try {
                     justifyContent: "center",
                     alignItems: "center",
                     height: "30vh",
+                    width:"100%"
                   }}
                 >
-                  <img className="wait" src="../img/wait.gif" alt="wait" />
+                    <img style={{width:'50px', height:'50px'}} className="wait" src="../img/wait.gif" alt="wait" />
                 </center>
               </div>
             ) : (

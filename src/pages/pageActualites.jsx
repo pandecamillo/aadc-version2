@@ -88,15 +88,11 @@ function PageActualites() {
                 justifyContent: "center",
                 alignItems: "center",
                 height: "40vh",
+                width:"100%"
               }}
             >
               <center>
-                <img
-                  src="../img/wait.gif"
-                  className="wait"
-                  width="100%"
-                  alt="wait"
-                />
+              <img style={{width:'50px', height:'50px'}} className="wait" src="../img/wait.gif" alt="wait" />
               </center>
             </div>
           ) : listEvenements.length ? (
