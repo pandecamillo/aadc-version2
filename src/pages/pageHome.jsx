@@ -583,7 +583,7 @@ de toutes les contraintes qui l'étouffent.
         <h2>Doctrine et idéaux</h2>
         <div className="section-content">
           <img
-            src="../img/acceuil/4.jpg"
+            src="../img/acceuil/5.jpg"
             alt="Vision de l'AADC - Paysage urbain futuriste et prospère"
           />
           <div>
