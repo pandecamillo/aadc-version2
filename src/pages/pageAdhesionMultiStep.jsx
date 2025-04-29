@@ -170,7 +170,7 @@ const EtapeOrigine = ({ nextStep, prevStep, updateFormData, formData }) => {
         <input autocomplete="off" type="date" id="dateNaissance" name="dateNaissance" min="1900-01-01" max="2010-12-31" value={formData.dateNaissance || ''} onChange={handleChange} required />
       </div>
       <div className="form-group">
-        <label htmlFor="typeMembre">Province:</label>
+        <label htmlFor="typeMembre">Province d'origine:</label>
         <select id="typeMembre" name="typeMembre" value={formData.provinceOrigineCode || ''} onChange={handleProvinceOrigine} required>
           <option value="">-- Choisir --</option>
           {listInterfederations}
