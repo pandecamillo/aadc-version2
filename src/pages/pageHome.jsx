@@ -530,8 +530,7 @@ footer {
         <h2>Nos Objectifs</h2>
         <div className="section-content">
           <img
-            src="../img/kinshasa.png"
-            alt="Objectifs de l'AADC - Flèches atteignant une cible"
+            src="../img/acceuil/3.jpg" alt="Objectifs de l'AADC - Flèches atteignant une cible"
           />
           <div>
             <p>L'alliance pour les actions de développement du
@@ -564,7 +563,7 @@ Congo a pour objectifs de :
         <h2>Idéologie</h2>
         <div className="section-content">
           <img
-            src="../img/photo-en-groupe.jpg"
+            src="../img/acceuil/4.jpg"
             alt="Vision de l'AADC - Paysage urbain futuriste et prospère"
           />
           <div>
@@ -584,7 +583,7 @@ de toutes les contraintes qui l'étouffent.
         <h2>Doctrine et idéaux</h2>
         <div className="section-content">
           <img
-            src="../img/photo-en-groupe.jpg"
+            src="../img/acceuil/4.jpg"
             alt="Vision de l'AADC - Paysage urbain futuriste et prospère"
           />
           <div>
